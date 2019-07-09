@@ -65,8 +65,7 @@ class SiteController extends Controller
     {
 
 
-
-       return $this->render('index');
+        return $this->render('index');
     }
 
     /**
@@ -81,10 +80,10 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if(\Yii::$app->request->isAjax){
+        if (\Yii::$app->request->isAjax) {
             return 'Запрос принят!';
         }
-        if($model->load(\Yii::$app->request->post())){
+        if ($model->load(\Yii::$app->request->post())) {
             var_dump($model);
         }
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -97,17 +96,6 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionPage()
-    {
-        $form_model = new TestForm();
-        if(\Yii::$app->request->isAjax){
-            return 'Запрос принят!';
-        }
-        if($form_model->load(\Yii::$app->request->post())){
-            var_dump($form_model);
-        }
-        return $this->render('page', compact('form_model'));
-    }
 
     /**
      * Logout action.
@@ -121,25 +109,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-
 
     /**
      * Displays about page.
@@ -150,9 +119,5 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
-
-    public function actionSay($message = 'Привет')
-    {
-        return $this->render('say', ['message' => $message]);
-    }
 }
+
