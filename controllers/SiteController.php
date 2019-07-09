@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Country;
+
 use Yii;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
@@ -63,23 +63,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $query = Country::find();
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $query->count(),
-        ]);
 
-        $countries = $query->orderBy('name')
-            ->offset($pagination->offset)
-            ->limit($pagination->limit)
-            ->all();
 
-        return $this->render('index', [
-            'countries' => $countries,
-            'pagination' => $pagination,
-        ]);
-       // return $this->render('index');
+       return $this->render('index');
     }
 
     /**
@@ -152,22 +139,7 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionSample()
-    {
-        if (Yii::$app->request->isAjax) {
-            $data = Yii::$app->request->post();
-            $searchname= explode(":", $data['searchname']);
-            $searchby= explode(":", $data['searchby']);
-            $searchname= $searchname[0];
-            $searchby= $searchby[0];
-            $search = // your logic;
-                \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return [
-                'search' => $search,
-                'code' => 100,
-            ];
-        }
-    }
+
 
     /**
      * Displays about page.
