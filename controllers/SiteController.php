@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\MoneyForm;
 use app\models\ContactForm;
 
 class SiteController extends Controller
@@ -118,6 +119,28 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * Displays money page.
+     *
+     * @return string
+     */
+    public function actionMoney()
+    {
+        $model = new MoneyForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            //данные в $model удачно проверены
+
+            // делаем что-то полезное с $model ...
+
+            return $this->render('money-confirm', ['model' => $model]);
+        } else {
+            // либо страница отображается первый раз, либо есть ошибка в данных
+            return $this->render('money', ['model' => $model]);
+        }
+        //return $this->render('Money');
     }
 }
 
